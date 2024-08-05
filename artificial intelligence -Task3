@@ -1,0 +1,77 @@
+/*Example: Text Classification of movie reviews*/
+
+
+# Import necessary libraries
+from collections import Counter
+import re
+
+# Sample dataset
+texts = [
+    'The new superhero movie was full of action and thrilling stunts',
+    'A hilarious comedy with great jokes and funny characters',
+    'An emotional drama with a touching storyline and brilliant performances',
+    'Explosive action sequences and a gripping plot',
+    'A comedy that will have you laughing from start to finish',
+    'A drama that explores deep human emotions and relationships',
+    'High-octane action with incredible special effects',
+    'A comedy about a group of friends on a hilarious adventure',
+    'A heartfelt drama that tugs at your heartstrings',
+    'Action-packed movie with a lot of fight scenes'
+]
+
+categories = [
+    'Action',
+    'Comedy',
+    'Drama',
+    'Action',
+    'Comedy',
+    'Drama',
+    'Action',
+    'Comedy',
+    'Drama',
+    'Action'
+]
+
+# Manual keyword-based classifier
+def create_keyword_map(texts, categories):
+    keyword_map = {}
+    for text, category in zip(texts, categories):
+        words = re.findall(r'\b\w+\b', text.lower())
+        word_count = Counter(words)
+        if category not in keyword_map:
+            keyword_map[category] = Counter()
+        keyword_map[category] += word_count
+    return keyword_map
+
+def classify(text, keyword_map):
+    words = re.findall(r'\b\w+\b', text.lower())
+    text_count = Counter(words)
+    
+    scores = {category: 0 for category in keyword_map}
+    for category, keyword_count in keyword_map.items():
+        score = sum(keyword_count[word] * text_count[word] for word in text_count)
+        scores[category] = score
+    
+    return max(scores, key=scores.get)
+
+# Create keyword map from training data
+keyword_map = create_keyword_map(texts, categories)
+
+# Example usage: Predicting category of a new review
+new_review = "A fantastic film with thrilling action scenes and a strong plot."
+predicted_category = classify(new_review, keyword_map)
+print("Predicted Category for the new review:", predicted_category)
+
+# Evaluate the simple classifier on the existing data
+def evaluate_classifier(texts, categories, keyword_map):
+    correct = 0
+    for text, true_category in zip(texts, categories):
+        predicted_category = classify(text, keyword_map)
+        if predicted_category == true_category:
+            correct += 1
+    accuracy = correct / len(texts)
+    return accuracy
+
+# Print accuracy
+accuracy = evaluate_classifier(texts, categories, keyword_map)
+print("Accuracy:", accuracy)
