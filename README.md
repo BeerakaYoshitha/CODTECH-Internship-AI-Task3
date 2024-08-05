@@ -3,7 +3,7 @@ Name: BEERAKA YOSHITHA
 
 Company: CODTECH IT SOLUTIONS
 
-ID:CT08DS6301
+ID: CT08DS6301
 
 Domain: ARTIFICIAL INTELLIGENCE
 
@@ -49,5 +49,5 @@ Technologies Used:
 
 - Python: Programming language used for implementing the classification logic.
 
-- Standard Libraries: Utilizes Python’s built-in libraries for text processing and classification
+- Standard Libraries: Utilizes Python’s built-in libraries for text processing and classification.
 
