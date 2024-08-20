@@ -52,3 +52,7 @@ Technologies Used:
 
 - Standard Libraries: Utilizes Python’s built-in libraries for text processing and classification.
 
+# OUTPUT OF THE CODE:
+![output](https://github.com/user-attachments/assets/b1f14479-0577-4006-a873-7f0758f779b2)
+
+
